@@ -1,11 +1,11 @@
 let urlIndex = 0;
 let urlList = [];
 
-chrome.storage.sync.get(['urlList'], function(result) {
-    if (result.urlList) {
-        urlList = result.urlList;
-    }
-});
+// chrome.storage.sync.get(['urlList'], function(result) {
+//     if (result.urlList) {
+//         urlList = result.urlList;
+//     }
+// });
 
 function openNextURL() {
     if (urlIndex >= urlList.length) {
@@ -34,7 +34,13 @@ function openNextURL() {
 }
 
 chrome.action.onClicked.addListener((tab) => {
-    openNextURL();
+    // openNextURL();
+    chrome.storage.sync.get(['urlList'], function(result) {
+        if (result.urlList) {
+            urlList = result.urlList;
+        }
+        openNextURL();
+    });
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {

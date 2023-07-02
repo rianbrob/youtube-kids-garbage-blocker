@@ -49,7 +49,7 @@ function populateList(urlList) {
 }
 
 document.getElementById('refresh').addEventListener('click', () => {
-    fetch('https://example.com/urlList.json')
+    fetch('https://raw.githubusercontent.com/rianbrob/youtube-kids-garbage-blocker/main/channels.json')
         .then(response => response.json())
         .then(newUrlList => {
             // Merge new list with old list, preserving the 'disabled' and 'isVisited' settings
