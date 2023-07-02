@@ -1,0 +1,15 @@
+{
+    "manifest_version": 3,
+    "name": "YouTube Kids Garbage Blocker",
+    "version": "1.0",
+    "permissions": [
+        "tabs", "activeTab", "storage", "contextMenus"
+    ],
+    "action": {
+        "default_title": "YouTube Kids Garbage Blocker"
+      },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "options_page": "options.html"
+}
