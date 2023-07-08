@@ -9,7 +9,8 @@ let urlList = [];
 
 function openNextURL() {
     if (urlIndex >= urlList.length) {
-        urlIndex = 0; // Reset index if it's larger than array length
+        return
+        // urlIndex = 0; // Reset index if it's larger than array length
     }
 
     // Skip disabled URLs
@@ -20,7 +21,7 @@ function openNextURL() {
         }
     }
 
-    chrome.tabs.create({ url: urlList[urlIndex].url }, function(tab) {
+    chrome.tabs.create({ url: `${urlList[urlIndex].url}/about` }, function(tab) {
         chrome.scripting.executeScript({
             target: { tabId: tab.id },
             files: ['contentScript.js']
@@ -35,6 +36,7 @@ function openNextURL() {
 
 chrome.action.onClicked.addListener((tab) => {
     // openNextURL();
+    urlIndex = 0
     chrome.storage.sync.get(['urlList'], function(result) {
         if (result.urlList) {
             urlList = result.urlList;
