@@ -17,19 +17,22 @@ function openNextURL() {
     while (urlList[urlIndex].disabled || urlList[urlIndex].isVisited) {
         urlIndex++;
         if (urlIndex >= urlList.length) {
-            urlIndex = 0; // Reset index if it's larger than array length
+            // urlIndex = 0; // Reset index if it's larger than array length
         }
     }
 
-    chrome.tabs.create({ url: `${urlList[urlIndex].url}/about` }, function(tab) {
-        chrome.scripting.executeScript({
-            target: { tabId: tab.id },
-            files: ['contentScript.js']
+    if (urlList[urlIndex].url) {
+        const url = `${urlList[urlIndex].url}/about`
+        chrome.tabs.create({ url }, function(tab) {
+            chrome.scripting.executeScript({
+                target: { tabId: tab.id },
+                files: ['contentScript.js']
+            });
         });
-    });
-
-    urlList[urlIndex].isVisited = true;
-    chrome.storage.sync.set({urlList: urlList});
+    
+        urlList[urlIndex].isVisited = true;
+        chrome.storage.sync.set({urlList: urlList});
+    }
 
     urlIndex++;
 }

@@ -43,6 +43,8 @@ async function blockChannelForKids() {
   clickButton('[aria-label="Block"]'); 
 
   chrome.runtime.sendMessage({action: "openNextURL"});
+
+  window.close()
 }
 
 blockChannelForKids();
